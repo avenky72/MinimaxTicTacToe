@@ -16,14 +16,15 @@ root.title("Tic Tac Toe Game")
 
 
 xcolor = ""
-
+ocolor = ""
+color_selection_count = 0  
 current_player = 'X'
 board = [['' for _ in range(BOARD_COLS)] for _ in range(BOARD_ROWS)]
 
 
 
 def start_game():
-    global xcolor
+    global xcolor, ocolor
     for widget in root.winfo_children():
         widget.destroy()
         
@@ -32,8 +33,13 @@ def start_game():
 
 
 def set_color(color):
-    global xcolor
-    xcolor = color
+    global xcolor, ocolor, color_selection_count
+    if color_selection_count == 0:
+        xcolor = color
+        color_selection_count += 1
+    elif color_selection_count == 1:
+        ocolor = color
+        color_selection_count += 1
 
 
 
@@ -50,7 +56,7 @@ def draw_board():
     for j in range(1, BOARD_COLS):
         canvas.create_line(j * cells, 0, j * cells, canvas_height, fill="black", width=5)
     
-    # Bind canvas click event to make_move function
+    # Button click bounds to the make_move func
     canvas.bind("<Button-1>", lambda event: make_move(event, canvas))
 
 
@@ -79,7 +85,7 @@ def draw_mark(canvas, row, col):
         canvas.create_line(x_center - 20, y_center - 20, x_center + 20, y_center + 20, fill=xcolor, width=5)
         canvas.create_line(x_center - 20, y_center + 20, x_center + 20, y_center - 20, fill=xcolor, width=5)
     else:
-        canvas.create_oval(x_center - 20, y_center - 20, x_center + 20, y_center + 20, outline="blue", width=5)
+        canvas.create_oval(x_center - 20, y_center - 20, x_center + 20, y_center + 20, outline=ocolor, width=5)
 
 
 
