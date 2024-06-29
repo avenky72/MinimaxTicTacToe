@@ -15,14 +15,15 @@ root.title("Tic Tac Toe Game")
 
 
 
-scolor = ""
+xcolor = ""
+
 current_player = 'X'
 board = [['' for _ in range(BOARD_COLS)] for _ in range(BOARD_ROWS)]
 
 
 
 def start_game():
-    global scolor
+    global xcolor
     for widget in root.winfo_children():
         widget.destroy()
         
@@ -31,8 +32,8 @@ def start_game():
 
 
 def set_color(color):
-    global scolor
-    scolor = color
+    global xcolor
+    xcolor = color
 
 
 
@@ -41,7 +42,7 @@ def draw_board():
     canvas = tk.Canvas(root, width=canvas_width, height=canvas_height)
     canvas.pack()
     
-    canvas.create_rectangle(0, 0, canvas_width, canvas_height, fill=scolor)
+    canvas.create_rectangle(0, 0, canvas_width, canvas_height, fill="ivory2")
     
     for i in range(1, BOARD_ROWS):
         canvas.create_line(0, i * cells, canvas_width, i * cells, fill="black", width=5)
@@ -75,8 +76,8 @@ def draw_mark(canvas, row, col):
     x_center = col * cells + cells // 2
     y_center = row * cells + cells // 2
     if current_player == 'X':
-        canvas.create_line(x_center - 20, y_center - 20, x_center + 20, y_center + 20, fill="red", width=5)
-        canvas.create_line(x_center - 20, y_center + 20, x_center + 20, y_center - 20, fill="red", width=5)
+        canvas.create_line(x_center - 20, y_center - 20, x_center + 20, y_center + 20, fill=xcolor, width=5)
+        canvas.create_line(x_center - 20, y_center + 20, x_center + 20, y_center - 20, fill=xcolor, width=5)
     else:
         canvas.create_oval(x_center - 20, y_center - 20, x_center + 20, y_center + 20, outline="blue", width=5)
 
