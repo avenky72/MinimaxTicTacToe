@@ -42,6 +42,12 @@ def set_color(color):
         color_selection_count += 1
 
 
+def draw_game():
+    if not any('' in row for row in board) and not check_winner():
+        return True
+    return False
+        
+
 
 
 def draw_board():
@@ -72,6 +78,8 @@ def make_move(event, canvas):
         draw_mark(canvas, row, col)
         if check_winner():
             winner()
+        elif draw_game():
+            draw()
         else:
             current_player = 'O' if current_player == 'X' else 'X'
 
@@ -109,6 +117,9 @@ def winner():
     winner_label.pack(pady=20)
 
 
+def draw():
+    winner_label = tk.Label(root, text=f"DRAW GAME", font=('arial', 20, 'bold'))
+    winner_label.pack(pady=20)
 
 
 #name_label = tk.Label(root, text="Enter your name:")
